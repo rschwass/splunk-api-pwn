@@ -1,1 +1,1 @@
-tar -czvf my_splunk_app.tar.gz my_splunk_app/
+tar -czvf rt-win.tar.gz rt-win/
