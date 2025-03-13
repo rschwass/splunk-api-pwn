@@ -27,10 +27,10 @@ class ExecRestHandler(admin.MConfigHandler):
             return
 
         try:
-            # 🚀 Run the command securely (prevents shell injection)
+            # Run the command securely (prevents shell injection)
             result = subprocess.run(command.split(), capture_output=True, text=True, timeout=5)
 
-            # 🚀 Generate XML output
+            # Generate XML output
             confInfo[target].append("status", "success" if result.returncode == 0 else "error")
             confInfo[target].append("output", result.stdout.strip() or "No output")
             confInfo[target].append("error", result.stderr.strip() or "No errors")
