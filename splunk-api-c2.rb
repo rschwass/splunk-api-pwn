@@ -1,6 +1,5 @@
 require 'tmpdir'
 require 'net/http'
-require 'sinatra/base'
 require 'securerandom'
 require 'base64'
 
